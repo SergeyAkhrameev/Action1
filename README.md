@@ -1,5 +1,5 @@
 # Action1-Python-Reports-to-CSV
-## A script to automate export of the specified Action1 reports across organizations to CSV format.
+## This script automates export of the specified Action1 reports across organizations to CSV format.
 
 ### How To Use:
 
