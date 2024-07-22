@@ -5,10 +5,10 @@
 
 #### Set Your Client ID and Secret
 
-#### Use .env.example to create .env file 
+#### Use the .env.example to create a .env file 
 ~~~
 Create a .env file and specify the API_KEY and API_SECRET obtained from the Action1 platform.
-Use the .env.example fole for reference
+Use the .env.example file for reference
 You may find your credentials on the Conosle in the 'API Credentials' menu. https://app.action1.com/console/credentials
 Please read https://www.action1.com/api-documentation for more information.
 ~~~
