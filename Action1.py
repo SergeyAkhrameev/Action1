@@ -20,6 +20,18 @@ class Action1:
         data = {"client_id":self.clientId, "client_secret":self.clientSecret}
         headers = {"Content-Type":"application/x-www-form-urlencoded"}
         url = "https://app.action1.com/api/3.0/oauth2/token"
+        try:
+            req = requests.post(url, headers=headers, data=data)
+            req.raise_for_status()
+            result = json.loads(req.text)
+            self.accessToken = result['access_token']
+            return self.accessToken
+        except requests.exceptions.HTTPError as http_err:
+            print(f"HTTP error occurred: {http_err}")
+        except KeyError as key_err:
+            print(f"Key error: {key_err}")
+        except Exception as err:
+            print(f"An error occurred: {err}")
         req = requests.post(url, headers=headers, data=data).text
         result = json.loads(req)
         self.accessToken = result['access_token']
