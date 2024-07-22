@@ -10,16 +10,16 @@ class Action1:
         self.clientId = os.getenv('API_KEY')
         self.clientSecret = os.getenv('API_SECRET')
         self.initial_location = REPORTS_LOCATION
-        self.organizationId = ""
-        self.organizationName = ""
-        self.accessToken = ""
-        self.reportId = ""
+        self.organizationId = ''
+        self.organizationName = ''
+        self.accessToken = ''
+        self.reportId = ''
         self.current_time = datetime.now().strftime("%Y_%m_%d_%H:%M:%S")
 
     def get_accessToken(self):
-        data = {"client_id":self.clientId, "client_secret":self.clientSecret}
-        headers = {"Content-Type":"application/x-www-form-urlencoded"}
-        url = "https://app.action1.com/api/3.0/oauth2/token"
+        data = {'client_id':self.clientId, 'client_secret':self.clientSecret}
+        headers = {'Content-Type':'application/x-www-form-urlencoded'}
+        url = 'https://app.action1.com/api/3.0/oauth2/token'
         try:
             req = requests.post(url, headers=headers, data=data)
             req.raise_for_status()
@@ -27,11 +27,11 @@ class Action1:
             self.accessToken = result['access_token']
             return self.accessToken
         except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred: {http_err}")
+            print(f'HTTP error occurred: {http_err}')
         except KeyError as key_err:
-            print(f"Key error: {key_err}")
+            print(f'Key error: {key_err}')
         except Exception as err:
-            print(f"An error occurred: {err}")
+            print(f'An error occurred: {err}')
         req = requests.post(url, headers=headers, data=data).text
         result = json.loads(req)
         self.accessToken = result['access_token']
@@ -47,8 +47,8 @@ class Action1:
         self.organizationName = ORGANIZATION_NAME
 
     def export_report(self):
-        url = "https://app.action1.com/api/3.0/reportdata/{}/{}/export?format=csv".format(self.organizationId, self.reportId)
-        headers = {"Authorization":"Bearer {}".format(self.accessToken)}
+        url = 'https://app.action1.com/api/3.0/reportdata/{}/{}/export?format=csv'.format(self.organizationId, self.reportId)
+        headers = {'Authorization':'Bearer {}'.format(self.accessToken)}
         print(url)
         # Make the request
         try:
@@ -71,25 +71,25 @@ class Action1:
                 file_path = os.path.join(organization_dir,'{}.csv'.format(self.reportId))
                 with open(file_path, 'w', newline='') as csvfile:
                     csvfile.write(csv_content)
-                print(f"CSV content saved to {file_path}")
+                print(f'CSV content saved to {file_path}')
             else:
-                print(f"No data available for report {self.reportId} in organization {self.organizationName}")
+                print(f'No data available for report {self.reportId} in organization {self.organizationName}')
         except requests.exceptions.HTTPError as http_err:
-            print(f"HTTP error occurred for report {self.reportId} in organization {self.organizationName}: {http_err}")
+            print(f'HTTP error occurred for report {self.reportId} in organization {self.organizationName}: {http_err}')
         except Exception as err:
-            print(f"An error occurred for report {self.reportId} in organization {self.organizationName}: {err}")
+            print(f'An error occurred for report {self.reportId} in organization {self.organizationName}: {err}')
         finally:
             pass
 
     def get_organizations(self):
-        url = "https://app.action1.com/api/3.0/organizations"
-        headers = {"Authorization": "Bearer {}".format(self.accessToken)}
+        url = 'https://app.action1.com/api/3.0/organizations'
+        headers = {'Authorization': 'Bearer {}'.format(self.accessToken)}
         req = requests.get(url, headers=headers)
         # Check for HTTP errors
         if req.status_code != 200:
             req.raise_for_status()
         result = json.loads(req.text)       
-        organizations = [{"id": org["id"], "name": org["name"]} for org in result['items']]
+        organizations = [{'id': org['id'], 'name': org['name']} for org in result['items']]
         for org in organizations:
             print(f"Organization ID: {org['id']}, Organization Name: {org['name']}")
         return organizations
