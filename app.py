@@ -21,7 +21,7 @@ REPORT_IDS = ['reboot_required_1635422625514',
 REPORTS_LOCATION = '/Users/sergey/Downloads/'
 
 act = Action1(REPORTS_LOCATION)
-act.get_accessToken()
+act.get_access_token()
 organizations = act.get_organizations()
 
 for org in organizations:
