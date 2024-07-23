@@ -32,10 +32,6 @@ class Action1:
             print(f'Key error: {key_err}')
         except Exception as err:
             print(f'An error occurred: {err}')
-        req = requests.post(url, headers=headers, data=data).text
-        result = json.loads(req)
-        self.accessToken = result['access_token']
-        return self.accessToken
     
     def set_report_id(self, REPORT_ID):
         self.reportId = REPORT_ID
