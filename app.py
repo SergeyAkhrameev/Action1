@@ -18,7 +18,7 @@ REPORT_IDS = ['reboot_required_1635422625514',
 
 # !!!!!!!!!--IMPORTANT--!!!!!!!!!
 #Specify a location to save reports:
-REPORTS_LOCATION = '/Users/user/Downloads/'
+REPORTS_LOCATION = '/Users/sergey/Downloads/'
 
 act = Action1(REPORTS_LOCATION)
 act.get_accessToken()
